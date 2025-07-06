@@ -2,6 +2,7 @@ package com.battery.ordersystem.controller;
 
 import com.battery.ordersystem.dto.LoginRequest;
 import com.battery.ordersystem.dto.LoginResponse;
+import com.battery.ordersystem.dto.ResetPasswordRequest;
 import com.battery.ordersystem.entity.User;
 import com.battery.ordersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,26 @@ public class AuthController {
             return ResponseEntity.ok("注册成功，用户ID: " + user.getUserId());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("注册失败: " + e.getMessage());
+        }
+    }
+    
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody LoginRequest request) {
+        try {
+            String result = userService.forgotPassword(request.getEmail());
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("忘记密码失败: " + e.getMessage());
+        }
+    }
+    
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordRequest request) {
+        try {
+            String result = userService.resetPassword(request);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("重置密码失败: " + e.getMessage());
         }
     }
     
