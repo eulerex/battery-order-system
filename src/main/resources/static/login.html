@@ -331,14 +331,16 @@
                 
                 if (data.success) {
                     showMessage('登录成功！正在跳转...', 'success');
-                    // 保存token到localStorage
+                    // 保存用户信息到localStorage
                     localStorage.setItem('token', data.token);
-                    localStorage.setItem('userEmail', data.email);
-                    localStorage.setItem('userRole', data.role);
+                    localStorage.setItem('userInfo', JSON.stringify({
+                        email: data.email,
+                        role: data.role
+                    }));
                     
-                    // 2秒后跳转到首页
+                    // 2秒后跳转到主页面
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = '/dashboard.html';
                     }, 2000);
                 } else {
                     showMessage(data.message || '登录失败', 'error');

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电池订单系统</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔋</div>
+        <h1>电池订单系统</h1>
+        <p>智能订单管理平台</p>
+        <div class="loading"></div>
+        <p style="margin-top: 20px; font-size: 0.9rem;">正在检查登录状态...</p>
+    </div>
+
+    <script>
+        // 检查登录状态并重定向
+        function checkAuthAndRedirect() {
+            const token = localStorage.getItem('token');
+            const userInfo = localStorage.getItem('userInfo');
+            
+            if (token && userInfo) {
+                // 已登录，跳转到主页面
+                window.location.href = '/dashboard.html';
+            } else {
+                // 未登录，跳转到登录页面
+                window.location.href = '/login.html';
+            }
+        }
+        
+        // 页面加载后立即检查
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟1秒后重定向，让用户看到加载动画
+            setTimeout(checkAuthAndRedirect, 1000);
+        });
+    </script>
+</body>
+</html> 
